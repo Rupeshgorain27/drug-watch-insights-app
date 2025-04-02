@@ -1,5 +1,5 @@
 
-import { Bell, User, Menu } from "lucide-react";
+import { Bell, User, Menu, Settings } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
 import { 
@@ -20,6 +20,20 @@ export function Header() {
       title: "Sign Up",
       description: "Sign up functionality will be implemented soon.",
     });
+  };
+
+  const navigateToReportAdr = () => {
+    const reportAdrButton = document.querySelector(`button[value="report-adr"]`);
+    if (reportAdrButton instanceof HTMLElement) {
+      reportAdrButton.click();
+    }
+  };
+
+  const navigateToSettings = () => {
+    const settingsButton = document.querySelector(`button[value="settings"]`);
+    if (settingsButton instanceof HTMLElement) {
+      settingsButton.click();
+    }
   };
 
   return (
@@ -43,9 +57,7 @@ export function Header() {
         <span className="font-semibold text-medical-dark">DrugWatch</span>
       </div>
       <div className="ml-auto flex items-center space-x-4">
-        <Button variant="outline" className="hidden md:flex" onClick={() => {
-          document.querySelector(`button[value="report-adr"]`)?.click();
-        }}>
+        <Button variant="outline" className="hidden md:flex" onClick={navigateToReportAdr}>
           Report New ADR
         </Button>
         <Button variant="ghost" className="relative" size="icon">
@@ -70,9 +82,7 @@ export function Header() {
               <User className="mr-2 h-4 w-4" />
               <span>Profile</span>
             </DropdownMenuItem>
-            <DropdownMenuItem onClick={() => {
-              document.querySelector(`button[value="settings"]`)?.click();
-            }}>
+            <DropdownMenuItem onClick={navigateToSettings}>
               <Settings className="mr-2 h-4 w-4" />
               <span>Settings</span>
             </DropdownMenuItem>

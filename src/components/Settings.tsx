@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -222,11 +221,7 @@ export function Settings() {
               <Button 
                 variant="destructive" 
                 onClick={() => {
-                  toast({
-                    title: "Warning",
-                    description: "Account deletion is disabled in this demo.",
-                    variant: "destructive"
-                  });
+                  toast.error("Account deletion is disabled in this demo.");
                 }}
               >
                 Delete Account
