@@ -44,9 +44,14 @@ export function Header() {
         <span className="font-semibold text-medical-dark">DrugWatch</span>
       </div>
       <div className="ml-auto flex items-center space-x-4">
-        <Button variant="outline" className="hidden md:flex">
-          <Link to="/report-adr">Report New ADR</Link>
-        </Button>
+        <Link to="/report-adr">
+          <Button 
+            variant="default" 
+            className="hidden md:flex bg-medical-primary hover:bg-medical-secondary"
+          >
+            Report New ADR
+          </Button>
+        </Link>
         <Button variant="ghost" className="relative" size="icon">
           <Bell className="h-5 w-5" />
           <span className="absolute top-1 right-1.5 h-2 w-2 rounded-full bg-medical-accent" />
