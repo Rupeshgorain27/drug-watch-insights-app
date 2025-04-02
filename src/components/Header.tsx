@@ -1,17 +1,32 @@
 
-import { Bell } from "lucide-react";
+import { Bell, User, Menu } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { useState } from "react";
+import { 
+  DropdownMenu, 
+  DropdownMenuContent, 
+  DropdownMenuItem, 
+  DropdownMenuSeparator, 
+  DropdownMenuTrigger 
+} from "@/components/ui/dropdown-menu";
+import { useToast } from "@/hooks/use-toast";
 
 export function Header() {
+  const [showMobileMenu, setShowMobileMenu] = useState(false);
+  const { toast } = useToast();
+  
+  const handleSignUp = () => {
+    toast({
+      title: "Sign Up",
+      description: "Sign up functionality will be implemented soon.",
+    });
+  };
+
   return (
     <header className="sticky top-0 z-10 flex h-16 items-center border-b bg-white px-6 md:px-8">
       <div className="md:hidden">
-        <Button variant="ghost" size="icon">
-          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="h-6 w-6">
-            <rect width="18" height="18" x="3" y="3" rx="2" ry="2" />
-            <line x1="9" x2="15" y1="9" y2="9" />
-            <line x1="9" x2="15" y1="15" y2="15" />
-          </svg>
+        <Button variant="ghost" size="icon" onClick={() => setShowMobileMenu(!showMobileMenu)}>
+          <Menu className="h-6 w-6" />
           <span className="sr-only">Toggle Menu</span>
         </Button>
       </div>
@@ -28,7 +43,9 @@ export function Header() {
         <span className="font-semibold text-medical-dark">DrugWatch</span>
       </div>
       <div className="ml-auto flex items-center space-x-4">
-        <Button variant="outline" className="hidden md:flex">
+        <Button variant="outline" className="hidden md:flex" onClick={() => {
+          document.querySelector(`button[value="report-adr"]`)?.click();
+        }}>
           Report New ADR
         </Button>
         <Button variant="ghost" className="relative" size="icon">
@@ -36,14 +53,35 @@ export function Header() {
           <span className="absolute top-1 right-1.5 h-2 w-2 rounded-full bg-medical-accent" />
           <span className="sr-only">Notifications</span>
         </Button>
-        <Button variant="ghost" className="rounded-full" size="icon">
-          <img
-            src="https://api.dicebear.com/7.x/avataaars/svg?seed=user123"
-            alt="User Avatar"
-            className="h-8 w-8 rounded-full"
-          />
-          <span className="sr-only">User Profile</span>
-        </Button>
+        
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <Button variant="ghost" className="rounded-full" size="icon">
+              <img
+                src="https://api.dicebear.com/7.x/avataaars/svg?seed=user123"
+                alt="User Avatar"
+                className="h-8 w-8 rounded-full"
+              />
+              <span className="sr-only">User Profile</span>
+            </Button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent align="end" className="w-56">
+            <DropdownMenuItem>
+              <User className="mr-2 h-4 w-4" />
+              <span>Profile</span>
+            </DropdownMenuItem>
+            <DropdownMenuItem onClick={() => {
+              document.querySelector(`button[value="settings"]`)?.click();
+            }}>
+              <Settings className="mr-2 h-4 w-4" />
+              <span>Settings</span>
+            </DropdownMenuItem>
+            <DropdownMenuSeparator />
+            <DropdownMenuItem onClick={handleSignUp}>
+              Sign Up / Login
+            </DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
       </div>
     </header>
   );

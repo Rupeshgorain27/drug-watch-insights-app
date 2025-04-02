@@ -1,9 +1,12 @@
 
+import { useState } from "react";
 import { Sidebar } from "@/components/Sidebar";
 import { Header } from "@/components/Header";
 import { Dashboard } from "@/components/Dashboard";
 
 const Index = () => {
+  const [showMobileSidebar, setShowMobileSidebar] = useState(false);
+  
   return (
     <div className="min-h-screen bg-gray-50">
       <div className="flex h-full">
