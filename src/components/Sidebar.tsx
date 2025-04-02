@@ -1,5 +1,6 @@
 
 import React from "react";
+import { Link, useLocation } from "react-router-dom";
 import {
   SidebarProvider,
   Sidebar as ShadcnSidebar,
@@ -9,14 +10,14 @@ import {
   SidebarMenuButton,
 } from "@/components/ui/sidebar";
 import { Home, FilePlus, AlertCircle, BookOpen, Settings } from "lucide-react";
-import { useNavigate } from "react-router-dom";
 
 export function Sidebar() {
-  const handleNavigation = (route: string) => {
-    const button = document.querySelector(`button[value="${route}"]`);
-    if (button instanceof HTMLElement) {
-      button.click();
-    }
+  const location = useLocation();
+  
+  const isActive = (path: string) => {
+    if (path === "/" && location.pathname === "/") return true;
+    if (path !== "/" && location.pathname.startsWith(path)) return true;
+    return false;
   };
 
   return (
@@ -35,37 +36,47 @@ export function Sidebar() {
         
         <SidebarMenu className="px-4 py-2">
           <SidebarMenuItem>
-            <SidebarMenuButton onClick={() => handleNavigation("dashboard")} tooltip="Dashboard">
-              <Home className="mr-2" />
-              <span>Dashboard</span>
+            <SidebarMenuButton asChild isActive={isActive("/")} tooltip="Dashboard">
+              <Link to="/">
+                <Home className="mr-2" />
+                <span>Dashboard</span>
+              </Link>
             </SidebarMenuButton>
           </SidebarMenuItem>
           
           <SidebarMenuItem>
-            <SidebarMenuButton onClick={() => handleNavigation("report-adr")} tooltip="Report ADR">
-              <FilePlus className="mr-2" />
-              <span>Report ADR</span>
+            <SidebarMenuButton asChild isActive={isActive("/report-adr")} tooltip="Report ADR">
+              <Link to="/report-adr">
+                <FilePlus className="mr-2" />
+                <span>Report ADR</span>
+              </Link>
             </SidebarMenuButton>
           </SidebarMenuItem>
           
           <SidebarMenuItem>
-            <SidebarMenuButton onClick={() => handleNavigation("symptom-checker")} tooltip="Symptom Checker">
-              <AlertCircle className="mr-2" />
-              <span>Symptom Checker</span>
+            <SidebarMenuButton asChild isActive={isActive("/symptom-checker")} tooltip="Symptom Checker">
+              <Link to="/symptom-checker">
+                <AlertCircle className="mr-2" />
+                <span>Symptom Checker</span>
+              </Link>
             </SidebarMenuButton>
           </SidebarMenuItem>
           
           <SidebarMenuItem>
-            <SidebarMenuButton onClick={() => handleNavigation("education")} tooltip="Education Resources">
-              <BookOpen className="mr-2" />
-              <span>Education Resources</span>
+            <SidebarMenuButton asChild isActive={isActive("/education")} tooltip="Education Resources">
+              <Link to="/education">
+                <BookOpen className="mr-2" />
+                <span>Education Resources</span>
+              </Link>
             </SidebarMenuButton>
           </SidebarMenuItem>
           
           <SidebarMenuItem>
-            <SidebarMenuButton onClick={() => handleNavigation("settings")} tooltip="Settings">
-              <Settings className="mr-2" />
-              <span>Settings</span>
+            <SidebarMenuButton asChild isActive={isActive("/settings")} tooltip="Settings">
+              <Link to="/settings">
+                <Settings className="mr-2" />
+                <span>Settings</span>
+              </Link>
             </SidebarMenuButton>
           </SidebarMenuItem>
         </SidebarMenu>

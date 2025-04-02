@@ -2,6 +2,7 @@
 import { Bell, User, Menu, Settings } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import { 
   DropdownMenu, 
   DropdownMenuContent, 
@@ -20,20 +21,6 @@ export function Header() {
       title: "Sign Up",
       description: "Sign up functionality will be implemented soon.",
     });
-  };
-
-  const navigateToReportAdr = () => {
-    const reportAdrButton = document.querySelector(`button[value="report-adr"]`);
-    if (reportAdrButton instanceof HTMLElement) {
-      reportAdrButton.click();
-    }
-  };
-
-  const navigateToSettings = () => {
-    const settingsButton = document.querySelector(`button[value="settings"]`);
-    if (settingsButton instanceof HTMLElement) {
-      settingsButton.click();
-    }
   };
 
   return (
@@ -57,8 +44,8 @@ export function Header() {
         <span className="font-semibold text-medical-dark">DrugWatch</span>
       </div>
       <div className="ml-auto flex items-center space-x-4">
-        <Button variant="outline" className="hidden md:flex" onClick={navigateToReportAdr}>
-          Report New ADR
+        <Button variant="outline" className="hidden md:flex">
+          <Link to="/report-adr">Report New ADR</Link>
         </Button>
         <Button variant="ghost" className="relative" size="icon">
           <Bell className="h-5 w-5" />
@@ -82,9 +69,11 @@ export function Header() {
               <User className="mr-2 h-4 w-4" />
               <span>Profile</span>
             </DropdownMenuItem>
-            <DropdownMenuItem onClick={navigateToSettings}>
-              <Settings className="mr-2 h-4 w-4" />
-              <span>Settings</span>
+            <DropdownMenuItem>
+              <Link to="/settings" className="flex items-center w-full">
+                <Settings className="mr-2 h-4 w-4" />
+                <span>Settings</span>
+              </Link>
             </DropdownMenuItem>
             <DropdownMenuSeparator />
             <DropdownMenuItem onClick={handleSignUp}>
